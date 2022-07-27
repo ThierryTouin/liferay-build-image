@@ -1,0 +1,58 @@
+version: "3.7"
+services:     
+  lbi_liferay:
+    build: 
+      context: .
+      dockerfile: liferay.Dockerfile      
+    container_name: lbi_liferay
+    environment:
+      LIFERAY_RETRY_PERIOD_JDBC_PERIOD_ON_PERIOD_STARTUP_PERIOD_DELAY: 10
+      LIFERAY_RETRY_PERIOD_JDBC_PERIOD_ON_PERIOD_STARTUP_PERIOD_MAX_PERIOD_RETRIES: 10
+      LIFERAY_JVM_OPTS: "-Xms2560m -Xmx4096m"
+      LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_EMAIL_PERIOD_ADDRESS_PERIOD_PREFIX : "superadmin"
+      LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_FIRST_PERIOD_NAME: "superadmin"
+      LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_LAST_PERIOD_NAME: "superadmin" 
+      LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_SCREEN_PERIOD_NAME : "superadmin"
+      LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_PASSWORD: "test2"
+      LCP_SECRET_DATABASE_NAME: lportal
+      LCP_SECRET_DATABASE_USER: dbuser
+      LCP_SECRET_DATABASE_PASSWORD: dbpassword
+
+    volumes:
+      - ./resources-container/mount:/mnt/liferay
+      - liferay-data:/opt/liferay/data
+      - liferay-osgi-configs:/opt/liferay/osgi/configs
+      - liferay-osgi-marketplace:/opt/liferay/osgi/marketplace
+      #- liferay-osgi-modules:/opt/liferay/osgi/modules
+      - liferay-osgi-war:/opt/liferay/osgi/war
+
+    ports: 
+      - 28080:8080
+      - 127.0.0.1:21311:11311
+      - 25005:5005 # debug
+    networks:
+      - lf74dxp  
+
+  lbi_postgresql:
+    image: postgres:13.5
+    container_name: lbi_postgresql
+    volumes:
+      - database_data:/var/lib/postgresql/data
+      - ./resources-container/postgresql/config/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRES_USER=dbuser
+      - POSTGRES_PASSWORD=dbpassword
+    ports:
+      - 5432:5432
+    networks:
+      - lf74dxp   
+
+networks:
+  lf74dxp:
+    name: lf74dxp
+volumes:
+  liferay-data:
+  liferay-osgi-configs:
+  liferay-osgi-marketplace:
+  liferay-osgi-war:
+  database_data:
