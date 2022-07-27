@@ -47,12 +47,38 @@ services:
     networks:
       - lf74dxp   
 
+  lbi_elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.2
+    container_name: lbi_elasticsearch
+    entrypoint: /usr/share/elasticsearch/docker-entrypoint-es.sh
+    environment: 
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    networks:
+      - lf74dxp
+    ports:
+      - 9400:9200
+      - 9500:9300
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./resources-container/elasticsearch/config/docker-entrypoint-es.sh:/usr/share/elasticsearch/docker-entrypoint-es.sh
+      - ./resources-container/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - elasticsearch-data:/usr/share/elasticsearch/data
+      - elasticsearch-plugins:/usr/share/elasticsearch/plugins
+
+
 networks:
   lf74dxp:
     name: lf74dxp
 volumes:
+  elasticsearch-data:
+  elasticsearch-plugins:
   liferay-data:
   liferay-osgi-configs:
   liferay-osgi-marketplace:
+  liferay-osgi-modules:
   liferay-osgi-war:
   database_data:
+
