@@ -13,13 +13,13 @@ services:
       LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_FIRST_PERIOD_NAME: "superadmin"
       LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_LAST_PERIOD_NAME: "superadmin" 
       LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_SCREEN_PERIOD_NAME : "superadmin"
-      LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_PASSWORD: "test2"
+      LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_PASSWORD: "test"
       LCP_SECRET_DATABASE_NAME: lportal
       LCP_SECRET_DATABASE_USER: dbuser
       LCP_SECRET_DATABASE_PASSWORD: dbpassword
 
     volumes:
-      - ./resources-container/mount:/mnt/liferay
+      - ./resources-container/liferay:/mnt/liferay
       - liferay-data:/opt/liferay/data
       - liferay-osgi-configs:/opt/liferay/osgi/configs
       - liferay-osgi-marketplace:/opt/liferay/osgi/marketplace
@@ -48,7 +48,7 @@ services:
       - lf74dxp   
 
   lbi_elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.2
     container_name: lbi_elasticsearch
     entrypoint: /usr/share/elasticsearch/docker-entrypoint-es.sh
     environment: 
