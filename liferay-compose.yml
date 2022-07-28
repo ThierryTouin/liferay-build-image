@@ -17,7 +17,8 @@ services:
       LCP_SECRET_DATABASE_NAME: lportal
       LCP_SECRET_DATABASE_USER: dbuser
       LCP_SECRET_DATABASE_PASSWORD: dbpassword
-      ELASTIC_ADDR: http://lbi_elasticsearch:9200
+      ELASTIC_NETWORK_HOST_ADDRESSES: $ELASTIC_NETWORK_HOST_ADDRESSES
+
 
     volumes:
       - ./resources-container/liferay:/mnt/liferay
