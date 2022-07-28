@@ -20,10 +20,11 @@ services:
 
     volumes:
       - ./resources-container/liferay:/mnt/liferay
+      - ./data/document_library:/opt/NAS/document_library
       - liferay-data:/opt/liferay/data
       - liferay-osgi-configs:/opt/liferay/osgi/configs
       - liferay-osgi-marketplace:/opt/liferay/osgi/marketplace
-      #- liferay-osgi-modules:/opt/liferay/osgi/modules
+      - liferay-osgi-modules:/opt/liferay/osgi/modules
       - liferay-osgi-war:/opt/liferay/osgi/war
 
     ports: 
