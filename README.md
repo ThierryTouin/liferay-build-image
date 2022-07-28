@@ -2,8 +2,8 @@
 
 ## Prise en compte dans l'image Liferay
 - Mise à jour du drivers de base de données
-- Création de variable d'environnement pour la base de données (ROOT.xml, setenv.sh, portal-ext.properties)
-- Préinstallation d'un binaire OSGI
+- Création de variable d'environnement pour la base de données (impact des fichiers ROOT.xml, setenv.sh, portal-ext.properties)
+- Préinstallation d'un binaire OSGI 
 - Préconfiguration de properties via un fichier portal-ext.properties
 
 
