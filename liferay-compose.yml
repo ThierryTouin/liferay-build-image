@@ -17,8 +17,9 @@ services:
       LCP_SECRET_DATABASE_NAME: lportal
       LCP_SECRET_DATABASE_USER: dbuser
       LCP_SECRET_DATABASE_PASSWORD: dbpassword
-      ELASTIC_NETWORK_HOST_ADDRESSES: $ELASTIC_NETWORK_HOST_ADDRESSES
-
+      #ELASTIC_NETWORK_HOST_ADDRESSES: ${ELASTIC_NETWORK_HOST_ADDRESSES}
+    env_file:
+     - .env_dev
 
     volumes:
       - ./resources-container/liferay:/mnt/liferay
