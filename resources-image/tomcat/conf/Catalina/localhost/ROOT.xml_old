@@ -56,10 +56,10 @@
 		type="javax.sql.DataSource" 
 		maxTotal="10" 
 		maxIdle="5" 
-		username="${JAVA_LCP_SECRET_DATABASE_USER}" 
-		password="${JAVA_LCP_SECRET_DATABASE_PASSWORD}" 
+		username="${LCP_SECRET_DATABASE_USER}" 
+		password="${LCP_SECRET_DATABASE_PASSWORD}" 
 		driverClassName="org.postgresql.Driver" 
-		url="${JAVA_LCP_SECRET_DATABASE_URL}" 
+		url="jdbc:postgresql://lbi_postgresql:5432/${LCP_SECRET_DATABASE_NAME}" 
 		validationQuery="select 1"
 	/>
 
