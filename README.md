@@ -23,3 +23,5 @@
 ## TODO
 - tester DIM
 - S3 Store 
+- Hikari
+- Tester HTTPS

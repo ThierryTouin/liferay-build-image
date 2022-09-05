@@ -54,8 +54,12 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.2
     container_name: lbi_elasticsearch
     entrypoint: /usr/share/elasticsearch/docker-entrypoint-es.sh
-    environment: 
-      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    environment:
+      - discovery.type=single-node
+      - cluster.name=LiferayElasticsearchCluster
+      - xpack.security.enabled=false
+      - network.bind_host=0.0.0.0
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"   
     networks:
       - lf74dxp
     ports:
