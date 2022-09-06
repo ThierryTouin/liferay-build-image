@@ -1,5 +1,18 @@
 version: "3.7"
-services:     
+services:  
+  lbi_httpd:
+    build:   
+      context: .
+      dockerfile: httpd.Dockerfile  
+    container_name: lbi_httpd 
+    environment:
+      SERVER_NAME: "localhost"
+      LIFERAY_CONTAINER_NAME : "lbi_liferay"
+    networks:
+      - lf74dxp  
+    ports:
+      - 80:80
+      - 443:443   
   lbi_liferay:
     build: 
       context: .
@@ -16,7 +29,6 @@ services:
       LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_PASSWORD: "test"
     env_file:
      - .env_dev
-
     volumes:
       - ./resources-container/liferay:/mnt/liferay
       - ./data/document_library:/opt/NAS/document_library
