@@ -27,6 +27,8 @@ services:
       LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_LAST_PERIOD_NAME: "superadmin" 
       LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_SCREEN_PERIOD_NAME : "superadmin"
       LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_PASSWORD: "test"
+      #LIFERAY_DL_PERIOD_STORE_PERIOD_IMPL: "com.liferay.portal.store.s3.IBMS3Store"
+      #LIFERAY_DL_PERIOD_STORE_PERIOD_IMPL: "com.liferay.portal.store.s3.S3Store"      
     env_file:
      - .env_dev
     volumes:
