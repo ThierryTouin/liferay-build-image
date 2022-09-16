@@ -25,3 +25,9 @@
 - S3 Store 
 - Hikari
 - Tester HTTPS
+
+
+
+
+
+172.21.0.5      liferay-domain-back
