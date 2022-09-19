@@ -31,3 +31,15 @@
 
 
 172.21.0.5      liferay-domain-back
+
+
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+               maxThreads="150" SSLEnabled="true">
+        <SSLHostConfig>
+            <Certificate certificateKeystoreFile="/opt/liferay/ssl/keystore.jks" certificateKeyPassword="password"
+                         type="RSA" />
+        </SSLHostConfig>
+    </Connector>
+
+
+    curl -kv https://lbi_liferay:8443
