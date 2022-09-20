@@ -28,7 +28,7 @@
 
 
 
-
+https://liferay-domain
 
 172.21.0.5      liferay-domain-back
 

@@ -1,9 +1,12 @@
-mkdir temp
+domain="liferay-domain"
+
 ## Delete old keystore
-rm -f ./temp/keystore.jks
+rm -Rf ./temp
+mkdir temp
 
 ## Generate jks
-keytool -genkey -keyalg RSA -alias selfsigned -keystore ./temp/keystore.jks -storepass password -validity 360 -keysize 2048 -dname ${DNAME:-CN=liferay-domain,OU=liferay-domain,C=liferay-domain} -storetype PKCS12
+#keytool -genkey -keyalg RSA -alias selfsigned -keystore ./temp/keystore.jks -storepass password -validity 360 -keysize 2048 -dname ${DNAME:-CN=liferay-domain,OU=liferay-domain,C=liferay-domain} -storetype PKCS12
+keytool -genkey -keyalg RSA -alias selfsigned -keystore ./temp/keystore.jks -storepass password -validity 360 -keysize 2048 -dname ${DNAME:-CN=$domain} -storetype PKCS12
 
 ## Extract certificate and secret key
 openssl pkcs12 -in ./temp/keystore.jks -passin pass:password -nodes -out ./temp/temporary.pem 

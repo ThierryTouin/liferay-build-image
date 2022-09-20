@@ -9,9 +9,3 @@ COPY --chown=liferay:liferay resources-images/liferay/osgi/configs/com.liferay.p
 ## Copy all binaries files from directory resources-image/binaries 
 COPY --chown=liferay:liferay resources-images/liferay/binaries/ /opt/liferay/osgi/modules
 
-#USER root
-#RUN ["apt-get", "-y", "update"]
-#RUN ["apt-get", "-y", "install", "libapr1"]
-#RUN ["apt-get", "-y", "install", "libapr1-dev"]
-#RUN ["apt-get", "-y", "upgrade", "libtcnative-1"]
-#USER liferay
