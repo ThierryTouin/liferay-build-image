@@ -1,4 +1,4 @@
-domain="liferay-domain"
+domain="apache-domain"
 
 ## Delete old keystore
 rm -Rf ./temp

@@ -6,10 +6,8 @@ services:
       dockerfile: httpd.Dockerfile  
     container_name: lbi_httpd 
     environment:
-      #SERVER_NAME: "localhost"
-      SERVER_NAME: "liferay-domain"
-      #LIFERAY_DOMAIN: "liferay-domain-back"
-      LIFERAY_DOMAIN: "lbi_liferay"
+      SERVER_NAME: "apache-domain"
+      LIFERAY_DOMAIN: "liferay-domain"
       LIFERAY_CONTAINER_NAME : "lbi_liferay"
     networks:
       - lf74dxp  
@@ -20,7 +18,8 @@ services:
     build: 
       context: .
       dockerfile: liferay.Dockerfile      
-    container_name: lbi_liferay    
+    container_name: lbi_liferay
+    hostname: liferay-domain   
     environment:
       LIFERAY_RETRY_PERIOD_JDBC_PERIOD_ON_PERIOD_STARTUP_PERIOD_DELAY: 10
       LIFERAY_RETRY_PERIOD_JDBC_PERIOD_ON_PERIOD_STARTUP_PERIOD_MAX_PERIOD_RETRIES: 10
@@ -33,7 +32,7 @@ services:
       LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_PASSWORD: "test"
       LIFERAY_WEB_PERIOD_SERVER_PERIOD_HTTPS_PERIOD_PORT: 443
       LIFERAY_WEB_PERIOD_SERVER_PERIOD_PROTOCOL: "https"
-      LIFERAY_WEB_PERIOD_SERVER_PERIOD_HOST: liferay-domain
+      LIFERAY_WEB_PERIOD_SERVER_PERIOD_HOST: apache-domain
       #LIFERAY_DL_PERIOD_STORE_PERIOD_IMPL: "com.liferay.portal.store.s3.IBMS3Store"
       #LIFERAY_DL_PERIOD_STORE_PERIOD_IMPL: "com.liferay.portal.store.s3.S3Store"      
     env_file:
