@@ -1,5 +1,29 @@
 # liferay-build-image
 
+## Before start your Liferay stack
+
+### 1. You must generate certificate for Apache and Liferay with the following script
+```
+genApacheCertificat.sh
+genLiferayCertificat.sh
+```
+### 2. Update the file /etc/hosts in host machine
+Append the file with the following line
+```
+127.0.0.1	apache-domain
+```
+## Start the Liferay stack
+```
+startLiferay.sh
+```
+
+
+## Acces (you must /etc/hosts in host machine)
+```
+https://apache-domain/
+```
+
+
 ## Prise en compte dans l'image Liferay (partie statique)
 - Mise à jour du drivers JDBC de la base de données
 - Préinstallation d'un binaire OSGI 
@@ -24,12 +48,8 @@
 - tester DIM
 - S3 Store 
 - Hikari
-- Tester HTTPS
 
 
-## Acces (you must /etc/hosts in host machine)
-https://apache-domain/
-
-## From Liferay container
+## Test From Liferay container
 
 curl -kv https://lbi_liferay:8443
