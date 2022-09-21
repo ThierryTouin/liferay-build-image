@@ -1,0 +1,1 @@
+tree --noreport /opt/liferay/

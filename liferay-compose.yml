@@ -34,7 +34,8 @@ services:
       LIFERAY_WEB_PERIOD_SERVER_PERIOD_PROTOCOL: "https"
       LIFERAY_WEB_PERIOD_SERVER_PERIOD_HOST: apache-domain
       #LIFERAY_DL_PERIOD_STORE_PERIOD_IMPL: "com.liferay.portal.store.s3.IBMS3Store"
-      #LIFERAY_DL_PERIOD_STORE_PERIOD_IMPL: "com.liferay.portal.store.s3.S3Store"      
+      #LIFERAY_DL_PERIOD_STORE_PERIOD_IMPL: "com.liferay.portal.store.s3.S3Store" 
+      LIFERAY_DISABLE_TRIAL_LICENSE: "true"     
     env_file:
      - .env_dev
     volumes:
