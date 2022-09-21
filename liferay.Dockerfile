@@ -7,5 +7,7 @@ COPY --chown=liferay:liferay resources-images/liferay/tomcat/lib/postgresql.jar 
 COPY --chown=liferay:liferay resources-images/liferay/osgi/configs/com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration.config /opt/liferay/osgi/configs
 
 ## Copy all binaries files from directory resources-image/binaries 
-COPY --chown=liferay:liferay resources-images/liferay/binaries/ /opt/liferay/osgi/modules
+#COPY --chown=liferay:liferay resources-images/liferay/binaries/ /opt/liferay/osgi/modules
+COPY --chown=liferay:liferay resources-images/liferay/binaries/module-**/target/*.jar /opt/liferay/osgi/modules/
+COPY --chown=liferay:liferay resources-images/liferay/binaries/module-**/target/*.war /opt/liferay/osgi/war/
 
