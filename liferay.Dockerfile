@@ -9,7 +9,7 @@ COPY --chown=liferay:liferay resources-images/liferay/internal-scripts /opt/life
 
 
 ## Copy all binaries files from directory resources-image/binaries 
-COPY --chown=liferay:liferay resources-images/liferay/binaries/module-**/target/*.jar /opt/liferay/osgi/modules/
+COPY --chown=liferay:liferay resources-images/liferay/binaries/module-**/target/*.jar /opt/liferay/osgi/biz-modules/
 #COPY --chown=liferay:liferay resources-images/liferay/binaries/module-**/target/*.war /opt/liferay/osgi/war/
 
 #USER root

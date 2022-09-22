@@ -5,3 +5,7 @@ echo -e "\n\n================================ Start /opt/liferay/internal-script
 source /opt/liferay/internal-scripts/scripts-el/update-elastic-conf.sh
 echo -e "\n\n================================ Start /opt/liferay/internal-scripts/scripts-ssl/displayServerXML.sh ================================"
 source /opt/liferay/internal-scripts/scripts-ssl/displayServerXML.sh
+echo -e "\n\n================================ Start /opt/liferay/internal-scripts/scripts-business/copyBusinessFiles.sh ================================"
+source /opt/liferay/internal-scripts/scripts-business/copyBusinessFiles.sh
+
+
