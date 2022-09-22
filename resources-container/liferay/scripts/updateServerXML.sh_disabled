@@ -1,3 +1,5 @@
+#!/bin/sh
+
 ## Delete old keystore
 ## Delete old keystore
 #rm -f /opt/liferay/ssl/cacerts.jks
@@ -13,13 +15,6 @@ echo "******************************** List /opt/liferay/ssl/cacerts.jks *******
 $JAVA_HOME/bin/keytool -list -v -keystore /opt/liferay/ssl/cacerts.jks -storepass password -alias tomcat
 
 sed -i '86d;94d' /opt/liferay/tomcat/conf/server.xml
-
-#sed -i '
-#    s/@/@A/g; s/{/@B/g; s/}/@C/g; s/<!--/{/g; s/-->/}/g;
-#    s/{\([^}]*Http11NioProtocol[^}]*\)}/\1/g;
-#    s/}/-->/g; s/{/<!--/g; s/@C/}/g; s/{/@B/g; s/@A/@/g
-#' /opt/liferay/tomcat/conf/server.xml
-
 
 STR1='certificateKeystoreFile\=\"conf\/localhost-rsa.jks\"'
 STR2='certificateKeystoreFile=\"\/opt\/liferay\/ssl\/cacerts.jks\" certificateKeystorePassword=\"password\" certificateKeyAlias=\"tomcat\" certificateKeystoreType=\"PKCS12\"'

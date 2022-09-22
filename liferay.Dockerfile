@@ -16,3 +16,16 @@ USER root
 RUN sed -i '6 i execute_scripts /opt/liferay/internalscripts' /usr/local/bin/configure_liferay.sh
 RUN chown liferay:liferay /usr/local/bin/configure_liferay.sh
 USER liferay
+
+#######################################
+## Update server.xml for ssl connection
+#######################################
+USER root
+
+RUN sed -i '86d;94d' /opt/liferay/tomcat/conf/server.xml
+ARG STR1='certificateKeystoreFile\=\"conf\/localhost-rsa.jks\"'
+ARG STR2='certificateKeystoreFile=\"\/opt\/liferay\/ssl\/cacerts.jks\" certificateKeystorePassword=\"${CERTIFICATE_KEY_PASSWORD}\" certificateKeyAlias=\"tomcat\" certificateKeystoreType=\"PKCS12\"'
+RUN sed -i 's/'"$STR1"'/'"$STR2"'/g' /opt/liferay/tomcat/conf/server.xml
+RUN chown liferay:liferay /opt/liferay/tomcat/conf/server.xml
+USER liferay
+

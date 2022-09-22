@@ -1,1 +1,1 @@
-tree --noreport /opt/liferay/
+tree --noreport /opt/liferay/ssl

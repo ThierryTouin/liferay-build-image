@@ -36,6 +36,7 @@ services:
       #LIFERAY_DL_PERIOD_STORE_PERIOD_IMPL: "com.liferay.portal.store.s3.IBMS3Store"
       #LIFERAY_DL_PERIOD_STORE_PERIOD_IMPL: "com.liferay.portal.store.s3.S3Store" 
       LIFERAY_DISABLE_TRIAL_LICENSE: "true"     
+      CERTIFICATE_KEY_PASSWORD: "password"
     env_file:
      - .env_dev
     volumes:
