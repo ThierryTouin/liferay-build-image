@@ -1,11 +1,23 @@
-#!/bin/sh
-echo -e "\n\n================================ Start /opt/liferay/internal-scripts/scripts-db/updateDBCredentials.sh ================================"
-source /opt/liferay/internal-scripts/scripts-db/updateDBCredentials.sh
-echo -e "\n\n================================ Start /opt/liferay/internal-scripts/scripts-el/update-elastic-conf.sh ================================"
-source /opt/liferay/internal-scripts/scripts-el/update-elastic-conf.sh
-echo -e "\n\n================================ Start /opt/liferay/internal-scripts/scripts-ssl/displayServerXML.sh ================================"
-source /opt/liferay/internal-scripts/scripts-ssl/displayServerXML.sh
-echo -e "\n\n================================ Start /opt/liferay/internal-scripts/scripts-business/copyBusinessFiles.sh ================================"
-source /opt/liferay/internal-scripts/scripts-business/copyBusinessFiles.sh
+#!/bin/bash
+
+function scriptExec() {
+
+    if [[ -f "$1" ]]; then
+        echo "$1 exists."
+        echo -e ">>>> Execute $1"
+        source $1
+    else 
+        echo "$1 does not exist."    
+    fi
+
+}
+
+echo -e "\n\n================================================================================================"
+scriptExec /opt/liferay/internal-scripts/scripts-db/updateDBCredentials.sh
+scriptExec /opt/liferay/internal-scripts/scripts-el/update-elastic-conf.sh
+scriptExec /opt/liferay/internal-scripts/scripts-ssl/displayServerXML.sh
+scriptExec /opt/liferay/internal-scripts/scripts-business/copyBusinessFiles.sh
+
+
 
 
