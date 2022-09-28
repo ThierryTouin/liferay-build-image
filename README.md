@@ -53,3 +53,6 @@ https://apache-domain/
 ## Test From Liferay container
 
 curl -kv https://lbi_liferay:8443
+
+## Links
+https://liferay.dev/blogs/-/blogs/fronting-liferay-tomcat-with-apache-httpd-daemon-revisted
