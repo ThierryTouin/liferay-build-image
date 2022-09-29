@@ -12,8 +12,10 @@ services:
     networks:
       - lf74dxp  
     ports:
-      - 80:80
-      - 443:443   
+      #- 80:80
+      #- 443:443   
+      - 1443:1443   
+      - 2443:2443   
   lbi_liferay:
     build: 
       context: .
@@ -37,6 +39,10 @@ services:
       #LIFERAY_DL_PERIOD_STORE_PERIOD_IMPL: "com.liferay.portal.store.s3.S3Store" 
       LIFERAY_DISABLE_TRIAL_LICENSE: "false"     
       CERTIFICATE_KEY_PASSWORD: "password"
+      LIFERAY_WEB_PERIOD_SERVER_PERIOD_FORWARDED_PERIOD_HOST_PERIOD_ENABLED: "true"
+      #LIFERAY_WEB_PERIOD_SERVER_PERIOD_FORWARDED_PERIOD_HOST_PERIOD_HEADER: "x-forwarded-host"
+      LIFERAY_WEB_PERIOD_SERVER_PERIOD_FORWARDED_PERIOD_HOST_PERIOD_HEADER: "custom-header"
+      
     env_file:
      - .env_dev
     volumes:
