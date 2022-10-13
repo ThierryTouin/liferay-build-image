@@ -13,9 +13,9 @@ services:
       - lf74dxp  
     ports:
       #- 80:80
-      #- 443:443   
-      - 1443:1443   
-      - 2443:2443   
+      - 443:443   
+      #- 1443:1443   
+      #- 2443:2443   
   lbi_liferay:
     build: 
       context: .
@@ -36,12 +36,12 @@ services:
       LIFERAY_WEB_PERIOD_SERVER_PERIOD_PROTOCOL: "https"
       #LIFERAY_WEB_PERIOD_SERVER_PERIOD_HOST: apache-domain
       #LIFERAY_DL_PERIOD_STORE_PERIOD_IMPL: "com.liferay.portal.store.s3.IBMS3Store"
-      #LIFERAY_DL_PERIOD_STORE_PERIOD_IMPL: "com.liferay.portal.store.s3.S3Store" 
+      LIFERAY_DL_PERIOD_STORE_PERIOD_IMPL: "com.liferay.portal.store.s3.S3Store" 
       LIFERAY_DISABLE_TRIAL_LICENSE: "false"     
       CERTIFICATE_KEY_PASSWORD: "password"
-      LIFERAY_WEB_PERIOD_SERVER_PERIOD_FORWARDED_PERIOD_HOST_PERIOD_ENABLED: "true"
+      #LIFERAY_WEB_PERIOD_SERVER_PERIOD_FORWARDED_PERIOD_HOST_PERIOD_ENABLED: "true"
       #LIFERAY_WEB_PERIOD_SERVER_PERIOD_FORWARDED_PERIOD_HOST_PERIOD_HEADER: "x-forwarded-host"
-      LIFERAY_WEB_PERIOD_SERVER_PERIOD_FORWARDED_PERIOD_HOST_PERIOD_HEADER: "custom-header"
+      #LIFERAY_WEB_PERIOD_SERVER_PERIOD_FORWARDED_PERIOD_HOST_PERIOD_HEADER: "custom-header"
       
     env_file:
      - .env_dev
@@ -108,6 +108,57 @@ services:
         timeout: 10s
         retries: 5
 
+  # lbi_s3server:
+  #   image: scality/s3server:latest
+  #   container_name: lbi_s3server
+  #   #restart: unless-stopped
+  #   ports:
+  #     - "18000:8000"
+  #   volumes:
+  #     - s3data:/usr/src/app/localData
+  #     - s3metadata:/usr/src/app/localMetadata
+  #   environment:
+  #     - SCALITY_ACCESS_KEY_ID=newAccessKey
+  #     - SCALITY_SECRET_ACCESS_KEY=newSecretKey
+  #     - SSL="FALSE"
+  #   networks:
+  #     - lf74dxp
+
+
+  lbi_minio:
+    image: minio/minio
+    container_name: lbi_minio
+    ports:
+      - "19000:9000"
+      - "43403:43403"
+    volumes:
+      - minio-export:/export
+      - minio-root:/root/.minio
+    environment:
+      - "MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE"
+      - "MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+    command: server /export
+    networks:
+      - lf74dxp
+
+      
+  lbi_minio_cli:
+    image: minio/mc
+    container_name: lbi_minio_cli
+    depends_on:
+      - lbi_minio
+    networks:
+      - lf74dxp      
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc config host add myminio http://lbi_minio:9000 AKIAIOSFODNN7EXAMPLE wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY;
+      /usr/bin/mc rm -r --force myminio/somebucketname;
+      /usr/bin/mc mb myminio/somebucketname;
+      /usr/bin/mc policy download myminio/somebucketname;
+      exit 0;
+      "
+
+
 networks:
   lf74dxp:
     name: lf74dxp
@@ -120,4 +171,5 @@ volumes:
   liferay-osgi-modules:
   liferay-osgi-war:
   database_data:
-
+  minio-export:
+  minio-root:

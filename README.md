@@ -20,7 +20,8 @@ startLiferay.sh
 
 ## Acces (you must /etc/hosts in host machine)
 ```
-https://apache-domain/
+https://apache-domain:1443/
+https://apache-domain:2443/
 ```
 
 
@@ -53,6 +54,10 @@ https://apache-domain/
 ## Test From Liferay container
 
 curl -kv https://lbi_liferay:8443
+
+## Test S3 Container
+curl -X GET http://lbi_minio:9000/
+
 
 ## Links
 https://liferay.dev/blogs/-/blogs/fronting-liferay-tomcat-with-apache-httpd-daemon-revisted
