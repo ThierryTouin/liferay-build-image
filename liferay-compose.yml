@@ -125,25 +125,25 @@ services:
   #     - lf74dxp
 
 
-  lbi_minio:
-    image: minio/minio
-    container_name: lbi_minio
-    hostname: lbi-minio
-    ports:
-      - "19000:9000"
-      - "19001:9001"
-    volumes:
-      - minio-export:/export
-      - minio-root:/root/.minio
-    environment:
-      - "MINIO_ROOT_USER=minio-root-user"
-      - "MINIO_ROOT_PASSWORD=minio-root-password"
-      - "MINIO_ACCESS_KEY=minio-root-user"
-      - "MINIO_SECRET_KEY=minio-root-password"
-    command: server --address 0.0.0.0:9000 --console-address ":9001" /export 
+  # lbi_minio:
+  #   image: minio/minio
+  #   container_name: lbi_minio
+  #   hostname: lbi-minio
+  #   ports:
+  #     - "19000:9000"
+  #     - "19001:9001"
+  #   volumes:
+  #     - minio-export:/export
+  #     - minio-root:/root/.minio
+  #   environment:
+  #     - "MINIO_ROOT_USER=minio-root-user"
+  #     - "MINIO_ROOT_PASSWORD=minio-root-password"
+  #     - "MINIO_ACCESS_KEY=minio-root-user"
+  #     - "MINIO_SECRET_KEY=minio-root-password"
+  #   command: server --address 0.0.0.0:9000 --console-address ":9001" /export 
     
-    networks:
-      - lf74dxp
+  #   networks:
+  #     - lf74dxp
 
       
   # lbi_minio_cli:
@@ -167,6 +167,22 @@ services:
   #     exit 0;
   #     "
 
+
+  lbi_minio:
+    image: bitnami/minio:latest
+    container_name: lbi_minio
+    hostname: lbi-minio
+    ports:
+      - "19000:9000"
+      - "19001:9001"
+    environment:
+      - "MINIO_ROOT_USER=minio-root-user"
+      - "MINIO_ROOT_PASSWORD=minio-root-password"
+    
+    networks:
+      - lf74dxp
+
+
   lbi_minio_cli:
     image: bitnami/minio-client
     container_name: lbi_minio_cli
@@ -175,10 +191,10 @@ services:
     environment:      
       - MINIO_SERVER_ACCESS_KEY=minio-root-user
       - MINIO_SERVER_SECRET_KEY=minio-root-password
-      - MINIO_SERVER_HOST=lbi-minio:9000
+      - MINIO_SERVER_HOST=lbi-minio
     networks:
       - lf74dxp      
-    command: mb somebucketname2
+    command: mb somebucketname
 
 
 networks:
