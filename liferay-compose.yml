@@ -128,35 +128,57 @@ services:
   lbi_minio:
     image: minio/minio
     container_name: lbi_minio
+    hostname: lbi-minio
     ports:
       - "19000:9000"
-      - "43403:43403"
+      - "19001:9001"
     volumes:
       - minio-export:/export
       - minio-root:/root/.minio
     environment:
-      - "MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE"
-      - "MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
-    command: server /export
+      - "MINIO_ROOT_USER=minio-root-user"
+      - "MINIO_ROOT_PASSWORD=minio-root-password"
+      - "MINIO_ACCESS_KEY=minio-root-user"
+      - "MINIO_SECRET_KEY=minio-root-password"
+    command: server --address 0.0.0.0:9000 --console-address ":9001" /export 
+    
     networks:
       - lf74dxp
 
       
+  # lbi_minio_cli:
+  #   image: minio/mc
+  #   container_name: lbi_minio_cli
+  #   depends_on:
+  #     - lbi_minio
+  #   environment:      
+  #     - MINIO_ACCESS_KEY=minio-root-user
+  #     - MINIO_SECRET_KEY=minio-root-password
+  #     - BUCKET_NAME=somebucketname
+  #     - ENDPOINT=http://lbi_minio:9000      
+  #   networks:
+  #     - lf74dxp      
+  #   entrypoint: >
+  #     /bin/sh -c "
+  #     /usr/bin/mc config host add myminio http://lbi_minio:9000 minio-root-user minio-root-password;
+  #     /usr/bin/mc rm -r --force somebucketname;
+  #     /usr/bin/mc mb somebucketname;
+  #     /usr/bin/mc policy download somebucketname;
+  #     exit 0;
+  #     "
+
   lbi_minio_cli:
-    image: minio/mc
+    image: bitnami/minio-client
     container_name: lbi_minio_cli
     depends_on:
       - lbi_minio
+    environment:      
+      - MINIO_SERVER_ACCESS_KEY=minio-root-user
+      - MINIO_SERVER_SECRET_KEY=minio-root-password
+      - MINIO_SERVER_HOST=lbi-minio:9000
     networks:
       - lf74dxp      
-    entrypoint: >
-      /bin/sh -c "
-      /usr/bin/mc config host add myminio http://lbi_minio:9000 AKIAIOSFODNN7EXAMPLE wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY;
-      /usr/bin/mc rm -r --force myminio/somebucketname;
-      /usr/bin/mc mb myminio/somebucketname;
-      /usr/bin/mc policy download myminio/somebucketname;
-      exit 0;
-      "
+    command: mb somebucketname2
 
 
 networks:
