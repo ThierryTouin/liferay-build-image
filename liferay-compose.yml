@@ -125,76 +125,86 @@ services:
   #     - lf74dxp
 
 
-  # lbi_minio:
-  #   image: minio/minio
-  #   container_name: lbi_minio
-  #   hostname: lbi-minio
-  #   ports:
-  #     - "19000:9000"
-  #     - "19001:9001"
-  #   volumes:
-  #     - minio-export:/export
-  #     - minio-root:/root/.minio
-  #   environment:
-  #     - "MINIO_ROOT_USER=minio-root-user"
-  #     - "MINIO_ROOT_PASSWORD=minio-root-password"
-  #     - "MINIO_ACCESS_KEY=minio-root-user"
-  #     - "MINIO_SECRET_KEY=minio-root-password"
-  #   command: server --address 0.0.0.0:9000 --console-address ":9001" /export 
-    
-  #   networks:
-  #     - lf74dxp
-
-      
-  # lbi_minio_cli:
-  #   image: minio/mc
-  #   container_name: lbi_minio_cli
-  #   depends_on:
-  #     - lbi_minio
-  #   environment:      
-  #     - MINIO_ACCESS_KEY=minio-root-user
-  #     - MINIO_SECRET_KEY=minio-root-password
-  #     - BUCKET_NAME=somebucketname
-  #     - ENDPOINT=http://lbi_minio:9000      
-  #   networks:
-  #     - lf74dxp      
-  #   entrypoint: >
-  #     /bin/sh -c "
-  #     /usr/bin/mc config host add myminio http://lbi_minio:9000 minio-root-user minio-root-password;
-  #     /usr/bin/mc rm -r --force somebucketname;
-  #     /usr/bin/mc mb somebucketname;
-  #     /usr/bin/mc policy download somebucketname;
-  #     exit 0;
-  #     "
-
-
   lbi_minio:
-    image: bitnami/minio:latest
+    image: minio/minio
     container_name: lbi_minio
     hostname: lbi-minio
     ports:
       - "19000:9000"
       - "19001:9001"
+    volumes:
+      - minio-export:/export
+      - minio-root:/root/.minio
     environment:
       - "MINIO_ROOT_USER=minio-root-user"
       - "MINIO_ROOT_PASSWORD=minio-root-password"
+      - "MINIO_ACCESS_KEY=minio-root-user"
+      - "MINIO_SECRET_KEY=minio-root-password"
+    command: server --address 0.0.0.0:9000 --console-address ":9001" /export 
     
     networks:
       - lf74dxp
 
-
+      
   lbi_minio_cli:
-    image: bitnami/minio-client
+    image: minio/mc
     container_name: lbi_minio_cli
     depends_on:
       - lbi_minio
     environment:      
-      - MINIO_SERVER_ACCESS_KEY=minio-root-user
-      - MINIO_SERVER_SECRET_KEY=minio-root-password
-      - MINIO_SERVER_HOST=lbi-minio
+      - MINIO_ACCESS_KEY=minio-root-user
+      - MINIO_SECRET_KEY=minio-root-password
+      - BUCKET_NAME=minio/liferay-dl-bucket
+      - ENDPOINT=http://lbi_minio:9000      
     networks:
       - lf74dxp      
-    command: mb somebucketname
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc alias set liferay http://lbi-minio:9000 minio-root-user minio-root-password;
+      /usr/bin/mc config host add liferay http://lbi-minio:9000 minio-root-user minio-root-password;
+      /usr/bin/mc rm -r --force liferay/dl-bucket;
+      /usr/bin/mc mb liferay/dl-bucket;
+      /usr/bin/mc policy set download liferay/dl-bucket;
+      /usr/bin/mc tree liferay;
+      exit 0;
+      "
+#      /usr/bin/mc policy download minio/liferay-dl-bucket;
+#      /usr/bin/mc policy public liferay/dl-bucket;
+#      /usr/bin/mc config host ls;
+
+
+
+
+  # lbi_minio:
+  #   image: bitnami/minio:latest
+  #   container_name: lbi_minio
+  #   hostname: lbi-minio
+  #   ports:
+  #     - "19000:9000"
+  #     - "19001:9001"
+  #   environment:
+  #     - "MINIO_ROOT_USER=minio-root-user"
+  #     - "MINIO_ROOT_PASSWORD=minio-root-password"
+  #     #- "MINIO_ACCESS_KEY=minio-root-user"
+  #     #- "MINIO_SECRET_KEY=minio-root-password"    
+  #   networks:
+  #     - lf74dxp
+
+
+  # lbi_minio_cli:
+  #   image: bitnami/minio-client
+  #   container_name: lbi_minio_cli
+  #   depends_on:
+  #     - lbi_minio
+  #   environment:      
+  #     - MINIO_SERVER_ACCESS_KEY=minio-root-user
+  #     - MINIO_SERVER_SECRET_KEY=minio-root-password
+  #     - MINIO_SERVER_HOST=lbi-minio
+  #   networks:
+  #     - lf74dxp      
+  #   #command: mb somebucketname
+  #   command: mb minio/liferay-dl-bucket
+
 
 
 networks:
