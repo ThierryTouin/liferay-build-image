@@ -162,9 +162,9 @@ services:
       /bin/sh -c "
       /usr/bin/mc alias set liferay http://lbi-minio:9000 minio-root-user minio-root-password;
       /usr/bin/mc config host add liferay http://lbi-minio:9000 minio-root-user minio-root-password;
-      /usr/bin/mc rm -r --force liferay/dl-bucket;
-      /usr/bin/mc mb liferay/dl-bucket;
-      /usr/bin/mc policy set download liferay/dl-bucket;
+      /usr/bin/mc rm -r --force liferay/liferay-dl-bucket;
+      /usr/bin/mc mb liferay/liferay-dl-bucket;
+      /usr/bin/mc policy set download liferay/liferay-dl-bucket;
       /usr/bin/mc tree liferay;
       exit 0;
       "
