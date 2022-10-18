@@ -61,3 +61,4 @@ curl -X GET http://lbi_minio:9000/
 
 ## Links
 https://liferay.dev/blogs/-/blogs/fronting-liferay-tomcat-with-apache-httpd-daemon-revisted
+https://nm-muzi.com/docs/minio-client-complete-guide.html

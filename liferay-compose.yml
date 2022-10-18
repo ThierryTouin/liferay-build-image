@@ -165,6 +165,8 @@ services:
       /usr/bin/mc rm -r --force liferay/liferay-dl-bucket;
       /usr/bin/mc mb liferay/liferay-dl-bucket;
       /usr/bin/mc policy set download liferay/liferay-dl-bucket;
+      /usr/bin/mc mb liferay/liferay-cfc-bucket;
+      /usr/bin/mc policy set download liferay/liferay-cft-bucket;
       /usr/bin/mc tree liferay;
       exit 0;
       "
