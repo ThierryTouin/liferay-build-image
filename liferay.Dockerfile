@@ -29,3 +29,7 @@ RUN sed -i 's/'"$STR1"'/'"$STR2"'/g' /opt/liferay/tomcat/conf/server.xml
 RUN chown liferay:liferay /opt/liferay
 USER liferay
 
+# install glowroot
+RUN curl -L https://github.com/glowroot/glowroot/releases/download/v0.13.6/glowroot-0.13.6-dist.zip > glowroot-dist.zip \
+  && unzip glowroot-dist.zip \
+  && rm glowroot-dist.zip 
