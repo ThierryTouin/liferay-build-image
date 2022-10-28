@@ -7,11 +7,17 @@
 genApacheCertificat.sh
 genLiferayCertificat.sh
 ```
-### 2. Update the file /etc/hosts in host machine
+### 2. Update the file /etc/hosts in your host machine
 Append the file with the following line
 ```
 127.0.0.1	apache-domain
 ```
+
+### 3. Compile module for Glowroot
+```
+compile-liferay-glowroot.sh
+```
+
 ## Start the Liferay stack
 ```
 startLiferay.sh
@@ -22,6 +28,21 @@ startLiferay.sh
 ```
 https://apache-domain:1443/
 https://apache-domain:2443/
+```
+
+## Glowroot
+### Access
+- Access through `/o/glowroot`
+
+### Users
+```
+admin
+2022adminPWD%
+```
+
+```
+glowroot
+GlwRT2022!
 ```
 
 

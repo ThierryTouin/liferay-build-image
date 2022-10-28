@@ -1,0 +1,13 @@
+Bundle-Name: liferay-glowroot
+Bundle-SymbolicName: com.liferay.samples.fbo.glowroot
+Bundle-Version: 1.0.0
+
+Import-Package:\
+	!org.apache.avalon.framework.logger,\
+	!org.apache.log,\
+	*
+
+-includeresource:\
+	META-INF/lib/smiley-http-proxy-servlet.jar=smiley-http-proxy-servlet-*.jar;lib:=true
+	
+		

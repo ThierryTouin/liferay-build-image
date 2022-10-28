@@ -27,7 +27,7 @@ services:
       LIFERAY_RETRY_PERIOD_JDBC_PERIOD_ON_PERIOD_STARTUP_PERIOD_MAX_PERIOD_RETRIES: 10
       #LIFERAY_JVM_OPTS: "-Xms2560m -Xmx4096m -Djavax.net.ssl.trustStore=/opt/liferay/ssl/cacerts.jks -Djavax.net.ssl.trustStorePassword=password"
       #LIFERAY_JVM_OPTS: "-Xms2560m -Xmx4096m"
-      LIFERAY_JVM_OPTS": "-Xms2048m -Xmx6144m -javaagent:/opt/liferay/glowroot/glowroot.jar"
+      LIFERAY_JVM_OPTS": "-Xms2048m -Xmx6144m"
       LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_EMAIL_PERIOD_ADDRESS_PERIOD_PREFIX : "superadmin"
       LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_FIRST_PERIOD_NAME: "superadmin"
       LIFERAY_DEFAULT_PERIOD_ADMIN_PERIOD_LAST_PERIOD_NAME: "superadmin" 

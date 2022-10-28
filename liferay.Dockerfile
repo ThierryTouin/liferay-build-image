@@ -33,3 +33,6 @@ USER liferay
 RUN curl -L https://github.com/glowroot/glowroot/releases/download/v0.13.6/glowroot-0.13.6-dist.zip > glowroot-dist.zip \
   && unzip glowroot-dist.zip \
   && rm glowroot-dist.zip 
+
+COPY --chown=liferay:liferay resources-images/liferay/glowroot/*.json /opt/liferay/glowroot/
+
