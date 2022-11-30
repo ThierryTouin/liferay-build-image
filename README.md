@@ -1,5 +1,18 @@
 # liferay-build-image
 
+## Architecture
+
+```mermaid
+graph TD
+      LB[Load Balancer] -- route1 --> web1
+      LB[Load Balancer] --> web2
+      web1 --> app1(fa:fa-check app1)
+      web1 ==> app2
+      web2 ==> app2(fa:fa-ban app2)
+      web2 --> app1
+      app1 --> D[(database)]
+```
+
 ## Before start your Liferay stack
 
 ### 1. You must generate certificate for Apache and Liferay with the following script
