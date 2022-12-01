@@ -10,9 +10,9 @@ flowchart TB
     direction TB
     subgraph CLIENT [" "]
       direction TB
-      C1(fa:fa-user) 
-      C2(fa:fa-user) 
-      C3(fa:fa-user) 
+      C1(fa:fa-user Client) 
+      C2(fa:fa-user Client) 
+      C3(fa:fa-user Client) 
     end
     subgraph DOCKER [" "]
       subgraph FRONT [" "]
@@ -48,7 +48,7 @@ flowchart TB
    classDef styleInvisible fill:white,stroke:white;
    classDef styleModule fill:#e7feff,stroke:#333,stroke-width:2px,font-size:15px;
    classDef styleImportant fill:#F07575,stroke:#333,stroke-width:2px;
-   classDef styleREdDash fill:white,stroke:red,stroke-width:3px,stroke-dasharray: 5, 5;
+   classDef styleREdDash fill:white,stroke:red,stroke-width:3px,stroke-dasharray: 5, 5,padding-left:5em;
 
 	  
 %% Assigning styles to nodes
