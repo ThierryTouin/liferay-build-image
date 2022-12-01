@@ -34,5 +34,9 @@ RUN curl -L https://github.com/glowroot/glowroot/releases/download/v0.13.6/glowr
   && unzip glowroot-dist.zip \
   && rm glowroot-dist.zip 
 
+
+# test patching tool
+RUN /opt/liferay/patching-tool/patching-tool.sh info
+
 COPY --chown=liferay:liferay resources-images/liferay/glowroot/*.json /opt/liferay/glowroot/
 
