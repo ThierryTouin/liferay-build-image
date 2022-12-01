@@ -2,15 +2,62 @@
 
 ## Architecture
 
+
 ```mermaid
-graph TD
-      LB[Load Balancer] -- route1 --> web1
-      LB[Load Balancer] --> web2
-      web1 --> app1(fa:fa-check app1)
-      web1 ==> app2
-      web2 ==> app2(fa:fa-ban app2)
-      web2 --> app1
-      app1 --> D[(database)]
+flowchart TB
+%% Nodes
+  subgraph G [" "]
+    direction TB
+    subgraph CLIENT [" "]
+      direction TB
+      C1(fa:fa-user) 
+      C2(fa:fa-user) 
+      C3(fa:fa-user) 
+    end
+    subgraph DOCKER [" "]
+      subgraph FRONT [" "]
+        direction TB
+        A1["Apache"] 
+      end
+      subgraph BACK [" "]
+        direction TB
+        LFR1["Liferay"] 
+        BD[(fa:fa-database Postgresql)] 
+        EL["Elasticsearch"]
+        S3[fa:fa-bitbucket Minio] 
+        S3CLI["Minio Cli"] 
+      end
+    end
+	end
+	
+%% Links
+   C1 --> |"https://apache-domain"| A1
+   C2 --> |"https://apache-domain"| A1
+   C3 --> |"https://apache-domain"| A1
+   A1 --> |"https://liferay-domain:8443"| LFR1
+   LFR1 --> |"HTTP"| S3
+   LFR1 --> |"JDBC"| BD
+   LFR1 --> |"HTTP"| EL
+   S3CLI --> |"HTTP"| S3
+
+   
+   
+%% Defining node styles
+   linkStyle default stroke-width:2px,fill:none,stroke:red,font-size:15px;
+   linkStyle 0,1,2 stroke-width:2px,fill:none,stroke:green,font-size:15px;
+   classDef styleInvisible fill:white,stroke:white;
+   classDef styleModule fill:#e7feff,stroke:#333,stroke-width:2px,font-size:15px;
+   classDef styleImportant fill:#F07575,stroke:#333,stroke-width:2px;
+   classDef styleREdDash fill:white,stroke:red,stroke-width:3px,stroke-dasharray: 5, 5;
+
+	  
+%% Assigning styles to nodes
+   class A1,LFR1,BD,EL,S3,S3CLI styleModule;
+   class LFR1 styleImportant;
+   class DOCKER styleREdDash;
+   class G,CLIENT,FRONT,BACK styleInvisible;
+	
+
 ```
 
 ## Before start your Liferay stack
@@ -39,8 +86,7 @@ startLiferay.sh
 
 ## Acces (you must /etc/hosts in host machine)
 ```
-https://apache-domain:1443/
-https://apache-domain:2443/
+https://apache-domain
 ```
 
 ## Glowroot
