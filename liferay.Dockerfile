@@ -7,7 +7,6 @@ COPY --chown=liferay:liferay resources-images/liferay/tomcat/lib/postgresql.jar 
 COPY --chown=liferay:liferay resources-images/liferay/osgi/configs/com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration.config /opt/liferay/osgi/configs
 COPY --chown=liferay:liferay resources-images/liferay/internal-scripts /opt/liferay/internal-scripts
 
-
 ## Copy all binaries files from directory resources-image/binaries 
 COPY --chown=liferay:liferay resources-images/liferay/binaries/module-**/target/*.jar /opt/liferay/osgi/biz-modules/
 #COPY --chown=liferay:liferay resources-images/liferay/binaries/module-**/target/*.war /opt/liferay/osgi/war/
@@ -35,8 +34,21 @@ RUN curl -L https://github.com/glowroot/glowroot/releases/download/v0.13.6/glowr
   && rm glowroot-dist.zip 
 
 
-# test patching tool
-RUN /opt/liferay/patching-tool/patching-tool.sh info
+# patching tool
+COPY --chown=liferay:liferay resources-images/liferay/patching-tool/patching-tool-3.0.37.zip /opt/liferay/
+RUN \
+  /opt/liferay/patching-tool/patching-tool.sh info \
+  && mv /opt/liferay/patching-tool/ /opt/liferay/patching-tool_3-0-36 \
+  && unzip /opt/liferay/patching-tool-3.0.37.zip \
+  && rm /opt/liferay/patching-tool-3.0.37.zip \
+  && /opt/liferay/patching-tool/patching-tool.sh info
+
+COPY --chown=liferay:liferay resources-images/liferay/patching-tool/patches/liferay-hotfix-960-7413.zip /opt/liferay/patching-tool/patches
+
+RUN \
+  /opt/liferay/patching-tool/patching-tool.sh install \
+  && /opt/liferay/patching-tool/patching-tool.sh info 
+
 
 COPY --chown=liferay:liferay resources-images/liferay/glowroot/*.json /opt/liferay/glowroot/
 
