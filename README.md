@@ -125,19 +125,49 @@ GlwRT2022!
 - Surcharge de properties via variable d'environnement fournie par Liferay 
 - Création d'un fichier `.env` pour test
 
+## HTTP2
+### Activer les modules
+```
+LoadModule http2_module modules/mod_http2.so
+LoadModule proxy_http2_module modules/mod_proxy_http2.so
+```
+
+### Define prefered protocol
+```
+# Prefred Protocol will be http/2
+Protocols h2 http/1.1
+```
+### Define ProxyPass
+```
+ProxyPass / h2://${LIFERAY_DOMAIN}:8443/
+ProxyPassReverse / https://${LIFERAY_DOMAIN}:8443
+```
+
+### Tomcat server.xml
+ajout de 
+```
+<UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
+```
+
+
 ## TODO
 - tester DIM
-- S3 Store 
 - Hikari
 
 
 ## Test From Liferay container
-
+```
 curl -kv https://lbi_liferay:8443
+```
+
+```
+curl https://liferay-domain:8443 -kv -o /dev/null --http2
+```
 
 ## Test S3 Container
+```
 curl -X GET http://lbi_minio:9000/
-
+```
 
 ## Links
 https://liferay.dev/blogs/-/blogs/fronting-liferay-tomcat-with-apache-httpd-daemon-revisted
