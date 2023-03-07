@@ -20,7 +20,7 @@ STR1='certificateKeystoreFile\=\"conf\/localhost-rsa.jks\"'
 STR2='certificateKeystoreFile=\"\/opt\/liferay\/ssl\/cacerts.jks\" certificateKeystorePassword=\"password\" certificateKeyAlias=\"tomcat\" certificateKeystoreType=\"PKCS12\"'
 sed -i 's/'"$STR1"'/'"$STR2"'/g' /opt/liferay/tomcat/conf/server.xml
 
-cat /opt/liferay/tomcat/conf/server.xml
+#cat /opt/liferay/tomcat/conf/server.xml
 
 
 
