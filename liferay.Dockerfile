@@ -1,4 +1,5 @@
-FROM liferay/dxp:7.4.13-u30
+#FROM liferay/dxp:7.4.13-u30
+FROM liferay/dxp:7.4.13-u46
 
 #USER root
 #RUN sed -i '6 i execute_scripts /opt/liferay/internalscripts' /usr/local/bin/configure_liferay.sh
